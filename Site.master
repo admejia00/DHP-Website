@@ -1,0 +1,79 @@
+<%@ Master Language="VB" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /> | Daily Hodge Podge</title>
+    <meta name="description" content="Daily Hodge Podge official merch. Street Drop hoodies, Premium Drop caps and the Brappp Top." />
+    <meta property="og:title" content="Daily Hodge Podge Merch" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/site.css?v=1" />
+</head>
+<body>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header class="site-header" id="siteHeader">
+        <a class="brand" href="Default.aspx" aria-label="Daily Hodge Podge home">
+            <%--<img src="images/logo.png" alt="" class="brand-mark" />--%>
+            <img src="images/wordmark.png" alt="Daily Hodge Podge" class="footer-wordmark" />
+        </a>
+        <nav class="nav" id="nav">
+            <a href="Default.aspx">Home</a>
+            <a href="Shop.aspx">Shop</a>
+            <a href="About.aspx">Story</a>
+            <a href="Contact.aspx">Contact</a>
+        </nav>
+        <button type="button" class="cart-btn" id="openCart" aria-label="Open cart">
+            Cart <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button type="button" class="burger" id="burger" aria-label="Menu"><span></span><span></span></button>
+    </header>
+
+    <main>
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <img src="images/wordmark.png" alt="Daily Hodge Podge" class="footer-wordmark" />
+            <div class="footer-links">
+                <a href="Shop.aspx">Shop</a>
+                <a href="About.aspx">Story</a>
+                <a href="Contact.aspx">Contact</a>
+            </div>
+            <p class="copy">&copy; <%= DateTime.Now.Year %> Daily Hodge Podge. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Cart drawer -->
+    <div class="overlay" id="overlay"></div>
+    <aside class="drawer" id="drawer" aria-hidden="true">
+        <div class="drawer-head">
+            <h3>Your Cart</h3>
+            <button type="button" id="closeCart" aria-label="Close cart">&times;</button>
+        </div>
+        <div class="drawer-body" id="cartItems"></div>
+        <div class="drawer-foot">
+            <div class="total"><span>Total</span><strong id="cartTotal">0</strong></div>
+            <a class="btn btn-solid btn-block" id="checkoutBtn" href="#">Place Order</a>
+            <p class="fine">Orders are confirmed by message. We'll reach out with payment and shipping details.</p>
+        </div>
+    </aside>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        window.DHP = {
+            currency: <%= Ui.JsString(Catalog.CurrencySymbol) %>,
+            orderEmail: "orders@yourdomain.com", // TODO: put your real order email here
+            products: <%= Ui.ProductsJson() %>
+        };
+    </script>
+    <script src="js/site.js?v=1"></script>
+</body>
+</html>
